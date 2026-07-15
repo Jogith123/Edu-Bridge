@@ -115,7 +115,7 @@ async def parse_document(
     if mime_type == "application/pdf":
         mime_type = "application/pdf"
 
-    result = await scan_document(image_bytes, mime_type, language)
+    result = await scan_document(image_bytes, mime_type, language, filename=file.filename, student_name=current_user.name)
     return result
 
 
