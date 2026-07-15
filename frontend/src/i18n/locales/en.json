@@ -146,7 +146,11 @@
     "no_profile_desc": "Complete your profile to generate a personalized study roadmap.",
     "complete_profile": "Complete Profile Now",
     "loading": "Generating your roadmap...",
-    "no_roadmap": "No roadmap generated yet."
+    "no_roadmap": "No roadmap generated yet.",
+    "core_target": "Core Target",
+    "milestones": "Key Milestones & Tasks",
+    "resources": "Recommended Study Resources",
+    "tips_title": "AI Guidance Tips"
   },
   "chat": {
     "title": "AI Education Coach",
@@ -154,7 +158,12 @@
     "placeholder": "Ask about scholarships, careers, college admissions...",
     "send": "Send",
     "thinking": "Thinking...",
-    "greeting": "Hello! I'm your EduBridge AI Coach. Ask me anything about scholarships, career guidance, or college admissions!"
+    "greeting": "Hello! I'm your EduBridge AI Coach. Ask me anything about scholarships, career guidance, or college admissions!",
+    "suggested_title": "Suggested Questions",
+    "q1": "What scholarships can I apply for with an income under 2 lakhs?",
+    "q2": "How do I apply for the NSP post-matric scholarship?",
+    "q3": "Tell me about NIT Trichy courses and cutoffs.",
+    "q4": "Which government schemes help rural students learn skills?"
   },
   "admin": {
     "dashboard_title": "NGO & Admin Analytics Dashboard",

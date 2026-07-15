@@ -2,29 +2,37 @@ import React, { useState, useRef, useEffect } from 'react';
 import api from '../services/api';
 import { Send, Sparkles, GraduationCap, Loader2, User } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 
 interface Message {
   sender: 'user' | 'ai';
   text: string;
 }
 
-const QUICK_SUGGESTIONS = [
-  "What scholarships can I apply for with an income under 2 lakhs?",
-  "How do I apply for the NSP post-matric scholarship?",
-  "Tell me about NIT Trichy courses and cutoffs.",
-  "Which government schemes help rural students learn skills?"
-];
-
 export const AIChatPage: React.FC = () => {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      sender: 'ai',
-      text: "Hello! I am your EduBridge AI Coach. You can ask me anything about scholarships, eligibility, colleges, entrance exams, or career advice. How can I help you today?"
-    }
-  ]);
+  const { t } = useTranslation();
+
+  const QUICK_SUGGESTIONS = [
+    t('chat.q1'),
+    t('chat.q2'),
+    t('chat.q3'),
+    t('chat.q4')
+  ];
+
+  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Set initial greeting using translated text once after mount/translation is ready
+  useEffect(() => {
+    setMessages([
+      {
+        sender: 'ai',
+        text: t('chat.greeting')
+      }
+    ]);
+  }, [t]);
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -55,8 +63,8 @@ export const AIChatPage: React.FC = () => {
           <Sparkles className="h-5 w-5" />
         </div>
         <div>
-          <h1 className="font-bold text-lg">AI Coach Assistant</h1>
-          <p className="text-xs text-text-secondary">Ask questions about scholarships, careers & exams</p>
+          <h1 className="font-bold text-lg">{t('chat.title')}</h1>
+          <p className="text-xs text-text-secondary">{t('chat.subtitle')}</p>
         </div>
       </div>
 
@@ -94,7 +102,7 @@ export const AIChatPage: React.FC = () => {
             <div className="h-8 w-8 rounded-full bg-secondary/20 border border-secondary/15 flex items-center justify-center text-secondary">
               <Loader2 className="h-4 w-4 animate-spin" />
             </div>
-            <span>Thinking...</span>
+            <span>{t('chat.thinking')}</span>
           </div>
         )}
         <div ref={scrollRef}></div>
@@ -103,7 +111,7 @@ export const AIChatPage: React.FC = () => {
       {/* Suggested Questions */}
       {messages.length === 1 && (
         <div className="mb-6 space-y-3">
-          <span className="text-xs font-bold text-text-secondary uppercase tracking-wider block">Suggested Questions</span>
+          <span className="text-xs font-bold text-text-secondary uppercase tracking-wider block">{t('chat.suggested_title')}</span>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {QUICK_SUGGESTIONS.map((item, idx) => (
               <button
@@ -128,7 +136,7 @@ export const AIChatPage: React.FC = () => {
       >
         <input
           type="text"
-          placeholder="Ask about scholarships, schemes, entrance exams..."
+          placeholder={t('chat.placeholder')}
           value={input}
           onChange={(e) => setInput(e.target.value)}
           disabled={isLoading}

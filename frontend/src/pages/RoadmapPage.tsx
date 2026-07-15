@@ -74,7 +74,7 @@ export const RoadmapPage: React.FC = () => {
             {roadmap?.title || t('roadmap.title')}
           </h1>
           <p className="text-xs text-text-secondary mt-1">
-            Core Target: <span className="text-secondary font-semibold capitalize">{roadmap?.career_focus || 'Your chosen field'}</span>
+            {t('roadmap.core_target')}: <span className="text-secondary font-semibold capitalize">{roadmap?.career_focus || 'Your chosen field'}</span>
           </p>
         </div>
       </div>
@@ -99,7 +99,7 @@ export const RoadmapPage: React.FC = () => {
 
               <div className="space-y-4">
                 <div>
-                  <h4 className="text-xs font-bold text-text-secondary uppercase tracking-wider mb-2">Key Milestones & Tasks</h4>
+                  <h4 className="text-xs font-bold text-text-secondary uppercase tracking-wider mb-2">{t('roadmap.milestones')}</h4>
                   <ul className="space-y-2">
                     {phase.tasks?.map((task: string, tIdx: number) => (
                       <li key={tIdx} className="flex items-start gap-2.5 text-sm text-text-secondary">
@@ -112,7 +112,7 @@ export const RoadmapPage: React.FC = () => {
 
                 {phase.resources?.length > 0 && (
                   <div className="pt-2 border-t border-white/5">
-                    <h4 className="text-xs font-bold text-text-secondary uppercase tracking-wider mb-2">Recommended Study Resources</h4>
+                    <h4 className="text-xs font-bold text-text-secondary uppercase tracking-wider mb-2">{t('roadmap.resources')}</h4>
                     <div className="flex flex-wrap gap-2">
                       {phase.resources.map((res: string, rIdx: number) => (
                         <span key={rIdx} className="text-xs bg-white/5 border border-white/10 px-2.5 py-1 rounded-lg text-text-secondary font-medium">
@@ -133,7 +133,7 @@ export const RoadmapPage: React.FC = () => {
         <div className="glass-panel p-6 space-y-4 bg-gradient-to-r from-success/5 to-transparent border-success/20">
           <h3 className="text-lg font-bold text-success flex items-center gap-2">
             <Lightbulb className="h-5 w-5 fill-success/15" />
-            AI Guidance Tips
+            {t('roadmap.tips_title')}
           </h3>
           <ul className="space-y-2">
             {roadmap.key_tips.map((tip: string, idx: number) => (
