@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../services/api';
-import { PhoneCall, Play, Plus, Clock, CheckCircle2, User, Phone, PlayCircle, Loader2, RotateCcw } from 'lucide-react';
+import { PhoneCall, Play, Plus, Clock, User, Phone, PlayCircle, Loader2, RotateCcw } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 export const CampaignsPage: React.FC = () => {

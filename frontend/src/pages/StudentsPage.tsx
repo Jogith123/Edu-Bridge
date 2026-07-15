@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../services/api';
-import { Users, Search, Mail, Phone, Calendar, CheckCircle, XCircle } from 'lucide-react';
+import { Users, Search, Mail, Phone, CheckCircle, XCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 export const StudentsPage: React.FC = () => {

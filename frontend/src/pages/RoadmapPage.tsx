@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import api from '../services/api';
-import { Calendar, HelpCircle, Lightbulb, Map, Star, Target, ClipboardList } from 'lucide-react';
+import { Calendar, Lightbulb, Map, Star, Target, ClipboardList } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 export const RoadmapPage: React.FC = () => {
+  const { t } = useTranslation();
   const [roadmap, setRoadmap] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [noProfile, setNoProfile] = useState(false);
@@ -24,14 +26,14 @@ export const RoadmapPage: React.FC = () => {
         if (err.response?.status === 400) {
           setNoProfile(true);
         } else {
-          toast.error('Failed to generate roadmap.');
+          toast.error(t('roadmap.no_roadmap'));
         }
       } finally {
         setLoading(false);
       }
     };
     fetchRoadmap();
-  }, []);
+  }, [t]);
 
   if (loading) {
     return (
@@ -47,16 +49,15 @@ export const RoadmapPage: React.FC = () => {
         <div className="h-16 w-16 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center">
           <ClipboardList className="h-8 w-8 text-primary" />
         </div>
-        <h2 className="text-2xl font-bold">Profile Required</h2>
+        <h2 className="text-2xl font-bold">{t('roadmap.no_profile')}</h2>
         <p className="text-text-secondary leading-relaxed">
-          Your personalized roadmap is generated once you complete the onboarding profile. It takes under 2 minutes!
+          {t('roadmap.no_profile_desc')}
         </p>
         <Link
           to="/onboarding"
-          className="px-8 py-3 rounded-xl font-bold text-white"
-          style={{ backgroundColor: 'var(--color-primary)' }}
+          className="px-8 py-3 rounded-xl font-bold text-white bg-primary hover:bg-primary-hover shadow-lg shadow-primary/20 transition-all"
         >
-          Complete Profile Now
+          {t('roadmap.complete_profile')}
         </Link>
       </div>
     );
@@ -70,7 +71,7 @@ export const RoadmapPage: React.FC = () => {
         </div>
         <div>
           <h1 className="text-2xl font-bold text-text-primary">
-            {roadmap?.title || 'Your Personalized Learning Roadmap'}
+            {roadmap?.title || t('roadmap.title')}
           </h1>
           <p className="text-xs text-text-secondary mt-1">
             Core Target: <span className="text-secondary font-semibold capitalize">{roadmap?.career_focus || 'Your chosen field'}</span>

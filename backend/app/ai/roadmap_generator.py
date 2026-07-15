@@ -67,10 +67,16 @@ ROADMAP_FALLBACK = {
 }
 
 
-async def generate_roadmap(profile: StudentProfile) -> Dict[str, Any]:
+async def generate_roadmap(profile: StudentProfile, language: str = 'en') -> Dict[str, Any]:
     """Generate a personalized roadmap based on student profile."""
     if not settings.GEMINI_API_KEY or settings.GEMINI_API_KEY == "your_gemini_api_key_here":
         return _customize_fallback_roadmap(profile, ROADMAP_FALLBACK)
+
+    lang_names = {
+        'en': 'English', 'hi': 'Hindi', 'te': 'Telugu', 'ta': 'Tamil',
+        'bn': 'Bengali', 'mr': 'Marathi', 'kn': 'Kannada', 'pa': 'Punjabi'
+    }
+    lang_name = lang_names.get(language, 'English')
 
     try:
         import google.generativeai as genai
@@ -88,6 +94,8 @@ Student Profile:
 - Family Income: {'₹{:,.0f}/year'.format(profile.family_income) if profile.family_income else 'Not specified'}
 - Career Interests: {', '.join(profile.career_interests or ['Not specified'])}
 - 12th %: {profile.percentage_12th or 'Not specified'}
+
+IMPORTANT: Write ALL text content (titles, tasks, tips, resources) in {lang_name} language only.
 
 Create a detailed, actionable, personalized 4-phase learning roadmap for this student.
 The roadmap should help them:

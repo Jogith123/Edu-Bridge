@@ -24,29 +24,39 @@ If you don't know something specific, direct them to official portals like schol
 """
 
 
+LANGUAGE_NAMES = {
+    'en': 'English', 'hi': 'Hindi', 'te': 'Telugu', 'ta': 'Tamil',
+    'bn': 'Bengali', 'mr': 'Marathi', 'kn': 'Kannada', 'pa': 'Punjabi'
+}
+
 async def get_ai_response(
     message: str,
     profile: Optional[StudentProfile],
     context: Optional[str] = None,
+    language: str = 'en',
 ) -> str:
     """Get AI response for student query."""
     if not settings.GEMINI_API_KEY or settings.GEMINI_API_KEY == "your_gemini_api_key_here":
         return _get_fallback_response(message)
 
+    lang_name = LANGUAGE_NAMES.get(language, 'English')
+    lang_instruction = f"\n\nIMPORTANT: Always respond in {lang_name} language only. Do not use English unless the user writes in English."
+
     try:
         import google.generativeai as genai
         genai.configure(api_key=settings.GEMINI_API_KEY)
-        model = genai.GenerativeModel("gemini-2.0-flash-exp", system_instruction=SYSTEM_PROMPT)
+        model = genai.GenerativeModel("gemini-2.0-flash-exp", system_instruction=SYSTEM_PROMPT + lang_instruction)
 
         student_context = ""
         if profile:
+            income_str = '₹{:,.0f}/year'.format(profile.family_income) if profile.family_income else 'Not provided'
             student_context = f"""
 Student Context:
 - State: {profile.state}
 - Category: {profile.category}
 - Class: {profile.current_class}, Stream: {profile.stream}
 - Career Interests: {', '.join(profile.career_interests or [])}
-- Family Income: ₹{profile.family_income:,.0f}/year if {profile.family_income} else 'Not provided'
+- Family Income: {income_str}
 """
 
         full_message = f"{student_context}\n\nStudent Question: {message}"

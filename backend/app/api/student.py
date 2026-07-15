@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, status, Depends
+from fastapi import APIRouter, HTTPException, status, Depends, UploadFile, File, Request
 from datetime import datetime
 from typing import Optional, List
 from pydantic import BaseModel
@@ -85,8 +85,43 @@ async def get_profile(
     return {"profile": profile_dict}
 
 
+@router.post("/parse-document")
+async def parse_document(
+    request: Request,
+    file: UploadFile = File(...),
+    current_user: User = Depends(get_current_user),
+):
+    """Use Gemini Vision to extract profile data from an uploaded document image."""
+    from app.ai.document_scanner import scan_document
+
+    language = request.headers.get("X-Language", "en")
+
+    allowed_types = ["image/jpeg", "image/png", "image/jpg", "image/webp", "application/pdf"]
+    if file.content_type not in allowed_types:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Unsupported file type. Please upload JPG, PNG, or PDF."
+        )
+
+    image_bytes = await file.read()
+    if len(image_bytes) > 10 * 1024 * 1024:  # 10MB limit
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="File too large. Please upload an image smaller than 10MB."
+        )
+
+    mime_type = file.content_type
+    # For PDF, treat as image/jpeg for Gemini (it handles PDF inline_data)
+    if mime_type == "application/pdf":
+        mime_type = "application/pdf"
+
+    result = await scan_document(image_bytes, mime_type, language)
+    return result
+
+
 @router.get("/recommendations")
 async def get_recommendations(
+    request: Request,
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
@@ -109,11 +144,14 @@ async def get_recommendations(
 
 @router.get("/roadmap")
 async def get_roadmap(
+    request: Request,
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
     """Get personalized learning roadmap."""
     from app.ai.roadmap_generator import generate_roadmap
+
+    language = request.headers.get("X-Language", "en")
 
     query = select(StudentProfile).where(StudentProfile.user_id == current_user.id)
     result = await db.execute(query)
@@ -125,7 +163,7 @@ async def get_roadmap(
             detail="Please complete your profile first",
         )
 
-    roadmap = await generate_roadmap(profile)
+    roadmap = await generate_roadmap(profile, language=language)
     return {"roadmap": roadmap}
 
 

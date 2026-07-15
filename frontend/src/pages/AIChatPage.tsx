@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import api from '../services/api';
-import { Send, Sparkles, GraduationCap, HelpCircle, Loader2, User } from 'lucide-react';
+import { Send, Sparkles, GraduationCap, Loader2, User } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 interface Message {

@@ -43,6 +43,7 @@ async def run_eligibility(
 
 @router.post("/chat")
 async def ai_chat(
+    request: Request,
     data: ChatMessage,
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
@@ -50,11 +51,13 @@ async def ai_chat(
     """AI assistant chat for student queries."""
     from app.ai.chat_assistant import get_ai_response
 
+    language = request.headers.get("X-Language", "en")
+
     query = select(StudentProfile).where(StudentProfile.user_id == current_user.id)
     result = await db.execute(query)
     profile = result.scalar_one_or_none()
 
-    response = await get_ai_response(data.message, profile, data.context)
+    response = await get_ai_response(data.message, profile, data.context, language=language)
     return {"response": response}
 
 
