@@ -5,8 +5,7 @@ import { useTranslation } from 'react-i18next';
 import api from '../services/api';
 import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Save, User, Award, BookOpen, Briefcase, ScanLine } from 'lucide-react';
-import { DocumentScanModal } from '../components/DocumentScanModal';
+import { ArrowLeft, ArrowRight, Save, User, Award, BookOpen, Briefcase } from 'lucide-react';
 
 const INDIAN_STATES = [
   'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh',
@@ -21,7 +20,6 @@ export const OnboardingWizard: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
-  const [scanOpen, setScanOpen] = useState(false);
   const [formData, setFormData] = useState({
     dob: '',
     gender: 'male',
@@ -52,21 +50,6 @@ export const OnboardingWizard: React.FC = () => {
     setFormData((prev) => ({ ...prev, [key]: value }));
   };
 
-  const applyScannedFields = (fields: Record<string, any>) => {
-    const FIELD_MAP: Record<string, string> = {
-      gender: 'gender', state: 'state', district: 'district', pincode: 'pincode',
-      category: 'category', family_income: 'family_income', current_class: 'current_class',
-      percentage_10th: 'percentage_10th', percentage_12th: 'percentage_12th',
-      institution_name: 'institution_name', board: 'board', dob: 'dob',
-    };
-    const updates: Record<string, any> = {};
-    for (const [k, v] of Object.entries(fields)) {
-      if (FIELD_MAP[k] && v !== null && v !== undefined) {
-        updates[FIELD_MAP[k]] = v;
-      }
-    }
-    setFormData(prev => ({ ...prev, ...updates }));
-  };
 
   const handleNext = () => {
     if (step === 1 && (!formData.district || !formData.pincode)) {
@@ -124,40 +107,12 @@ export const OnboardingWizard: React.FC = () => {
 
   return (
     <div className="max-w-3xl mx-auto px-6 py-12">
-      <DocumentScanModal
-        isOpen={scanOpen}
-        onClose={() => setScanOpen(false)}
-        onApply={applyScannedFields}
-      />
-
       <h1 className="text-3xl font-extrabold mb-2 text-center bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
         {t('onboarding.title')}
       </h1>
-      <p className="text-text-secondary text-center mb-4 text-sm">
+      <p className="text-text-secondary text-center mb-8 text-sm">
         {t('onboarding.subtitle')}
       </p>
-
-      {/* Smart Scan Banner */}
-      <motion.button
-        whileHover={{ scale: 1.01 }}
-        whileTap={{ scale: 0.99 }}
-        onClick={() => setScanOpen(true)}
-        className="w-full mb-6 flex items-center gap-4 p-4 bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/30 hover:border-primary/60 rounded-2xl transition-all group"
-      >
-        <div className="p-2 bg-primary/20 rounded-xl group-hover:bg-primary/30 transition-all">
-          <motion.div
-            animate={{ scale: [1, 1.15, 1] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            <ScanLine className="h-6 w-6 text-primary" />
-          </motion.div>
-        </div>
-        <div className="text-left">
-          <p className="font-semibold text-text-primary">{t('onboarding.scan_doc_btn')}</p>
-          <p className="text-xs text-text-secondary">{t('onboarding.scan_doc_desc')}</p>
-        </div>
-        <ArrowRight className="h-4 w-4 text-primary ml-auto opacity-0 group-hover:opacity-100 transition-all" />
-      </motion.button>
 
       {/* Step Indicators */}
       <div className="flex justify-between items-center mb-10 bg-white/5 border border-white/10 p-4 rounded-2xl">
