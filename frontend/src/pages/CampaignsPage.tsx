@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import api from '../services/api';
 import { PhoneCall, Play, Plus, Clock, User, Phone, PlayCircle, Loader2, RotateCcw } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 
 export const CampaignsPage: React.FC = () => {
+  const { t } = useTranslation();
   const [campaigns, setCampaigns] = useState<any[]>([]);
   const [leads, setLeads] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -98,10 +100,10 @@ export const CampaignsPage: React.FC = () => {
         <div>
           <h1 className="text-3xl font-extrabold mb-2 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent flex items-center gap-2">
             <PhoneCall className="h-8 w-8 text-primary" />
-            AI Voice Outreach Campaigns
+            {t('campaigns.title')}
           </h1>
           <p className="text-text-secondary text-sm">
-            Launch awareness campaigns powered by automated Vapi AI voice calls to onboard and check up on rural students.
+            {t('campaigns.subtitle')}
           </p>
         </div>
         <button
@@ -109,14 +111,14 @@ export const CampaignsPage: React.FC = () => {
           className="bg-primary hover:bg-primary-hover px-5 py-3 rounded-xl text-sm font-semibold text-white shadow-lg shadow-primary/20 flex items-center gap-2 cursor-pointer transition-all shrink-0"
         >
           <Plus className="h-5 w-5" />
-          Create Campaign
+          {t('campaigns.create_btn')}
         </button>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Active Campaigns */}
         <div className="lg:col-span-2 space-y-6">
-          <h3 className="font-bold text-lg border-b border-white/5 pb-3">Active Outreach Campaigns</h3>
+          <h3 className="font-bold text-lg border-b border-white/5 pb-3">{t('campaigns.active_title')}</h3>
           <div className="space-y-4 max-h-[70vh] overflow-y-auto pr-2 scrollbar">
             {campaigns.length > 0 ? (
               campaigns.map((camp, idx) => (
@@ -124,7 +126,7 @@ export const CampaignsPage: React.FC = () => {
                   <div className="flex justify-between items-start gap-4">
                     <div>
                       <h4 className="font-bold text-lg text-text-primary">{camp.name}</h4>
-                      <p className="text-xs text-text-secondary mt-1">{camp.description || 'No description provided'}</p>
+                      <p className="text-xs text-text-secondary mt-1">{camp.description || t('campaigns.no_description')}</p>
                     </div>
                     <span
                       className={`text-xs font-bold px-3 py-1 rounded-full capitalize border ${
@@ -142,15 +144,15 @@ export const CampaignsPage: React.FC = () => {
                   {/* Campaign stats summary */}
                   <div className="grid grid-cols-3 gap-4 py-3 bg-white/5 border border-white/5 rounded-xl text-center text-xs">
                     <div>
-                      <span className="text-text-muted font-semibold block">Calls Made</span>
+                      <span className="text-text-muted font-semibold block">{t('campaigns.calls_made')}</span>
                       <span className="text-sm font-bold text-text-primary mt-0.5 block">{camp.calls_made}</span>
                     </div>
                     <div>
-                      <span className="text-text-muted font-semibold block">Answered</span>
+                      <span className="text-text-muted font-semibold block">{t('campaigns.answered')}</span>
                       <span className="text-sm font-bold text-secondary mt-0.5 block">{camp.calls_answered}</span>
                     </div>
                     <div>
-                      <span className="text-text-muted font-semibold block">Profiles Updated</span>
+                      <span className="text-text-muted font-semibold block">{t('campaigns.profiles_updated')}</span>
                       <span className="text-sm font-bold text-success mt-0.5 block">{camp.profiles_updated}</span>
                     </div>
                   </div>
@@ -162,7 +164,7 @@ export const CampaignsPage: React.FC = () => {
                         className="flex-1 bg-success hover:bg-success-hover py-2.5 rounded-xl font-semibold text-white flex items-center justify-center gap-1.5 text-sm shadow-md cursor-pointer transition-all"
                       >
                         <Play className="h-4 w-4" />
-                        {camp.status === 'active' ? 'Call Students' : 'Launch Calling Agent'}
+                        {camp.status === 'active' ? t('admin.call_students') : t('campaigns.launch_btn')}
                       </button>
                       {camp.status === 'active' && (
                         <button
@@ -170,7 +172,7 @@ export const CampaignsPage: React.FC = () => {
                           className="bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2.5 rounded-xl font-semibold text-text-primary flex items-center justify-center gap-1.5 text-sm cursor-pointer transition-all"
                         >
                           <RotateCcw className="h-4 w-4" />
-                          Reset
+                          {t('admin.reset')}
                         </button>
                       )}
                     </div>
@@ -179,7 +181,7 @@ export const CampaignsPage: React.FC = () => {
               ))
             ) : (
               <div className="glass-panel p-12 text-center text-text-muted italic">
-                No campaigns created yet. Click "Create Campaign" to launch an outreach agent.
+                {t('campaigns.no_campaigns')}
               </div>
             )}
           </div>
@@ -187,7 +189,7 @@ export const CampaignsPage: React.FC = () => {
 
         {/* Lead Activity Logs */}
         <div className="glass-panel p-6 space-y-6">
-          <h3 className="font-bold text-lg border-b border-white/5 pb-3">AI Outreach Call Log</h3>
+          <h3 className="font-bold text-lg border-b border-white/5 pb-3">{t('campaigns.call_log_title')}</h3>
           <div className="space-y-4 max-h-[65vh] overflow-y-auto pr-1 scrollbar">
             {leads.length > 0 ? (
               leads.map((lead, idx) => (
@@ -195,7 +197,7 @@ export const CampaignsPage: React.FC = () => {
                   <div className="flex justify-between items-center text-xs">
                     <span className="font-bold text-text-primary flex items-center gap-1">
                       <User className="h-3.5 w-3.5 text-primary" />
-                      {lead.name || 'Student'}
+                      {lead.name || t('campaigns.student')}
                     </span>
                     <span
                       className={`px-2 py-0.5 rounded-md font-semibold capitalize ${
@@ -226,7 +228,7 @@ export const CampaignsPage: React.FC = () => {
               ))
             ) : (
               <div className="text-center py-12 text-text-muted text-xs italic">
-                No active outreach call records.
+                {t('campaigns.no_leads')}
               </div>
             )}
           </div>
@@ -237,11 +239,11 @@ export const CampaignsPage: React.FC = () => {
       {showCreateModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
           <div className="glass-panel w-full max-w-lg p-8 relative space-y-6">
-            <h3 className="text-xl font-bold text-text-primary">Create Outreach Campaign</h3>
+            <h3 className="text-xl font-bold text-text-primary">{t('campaigns.modal_title')}</h3>
 
             <form onSubmit={handleCreateCampaign} className="space-y-4">
               <div className="flex flex-col gap-1">
-                <label className="text-xs font-semibold text-text-secondary">Campaign Name</label>
+                <label className="text-xs font-semibold text-text-secondary">{t('campaigns.form_name')}</label>
                 <input
                   type="text"
                   placeholder="SC Category Out-Reach Scheme"
@@ -253,7 +255,7 @@ export const CampaignsPage: React.FC = () => {
               </div>
 
               <div className="flex flex-col gap-1">
-                <label className="text-xs font-semibold text-text-secondary">Description</label>
+                <label className="text-xs font-semibold text-text-secondary">{t('campaigns.form_desc')}</label>
                 <textarea
                   placeholder="Describe target goals..."
                   value={description}
@@ -264,13 +266,13 @@ export const CampaignsPage: React.FC = () => {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="flex flex-col gap-1">
-                  <label className="text-xs font-semibold text-text-secondary">Target State</label>
+                  <label className="text-xs font-semibold text-text-secondary">{t('campaigns.form_state')}</label>
                   <select
                     value={targetState}
                     onChange={(e) => setTargetState(e.target.value)}
                     className="glass-input text-sm"
                   >
-                    <option value="All States">All States</option>
+                    <option value="All States">{t('campaigns.all_states')}</option>
                     <option value="Madhya Pradesh">Madhya Pradesh</option>
                     <option value="West Bengal">West Bengal</option>
                     <option value="Bihar">Bihar</option>
@@ -280,7 +282,7 @@ export const CampaignsPage: React.FC = () => {
               </div>
 
               <div className="flex flex-col gap-1">
-                <label className="text-xs font-semibold text-text-secondary">AI Call Prompt / Instructions</label>
+                <label className="text-xs font-semibold text-text-secondary">{t('campaigns.form_script')}</label>
                 <textarea
                   placeholder="Instructions for Vapi AI Agent: e.g. Call student, check if they completed 12th, query family income, and confirm category..."
                   value={callScript}
@@ -296,7 +298,7 @@ export const CampaignsPage: React.FC = () => {
                   onClick={() => setShowCreateModal(false)}
                   className="bg-white/5 border border-white/10 hover:bg-white/10 px-4 py-2.5 rounded-xl text-sm font-semibold cursor-pointer"
                 >
-                  Cancel
+                  {t('common.cancel')}
                 </button>
                 <button
                   type="submit"
@@ -308,7 +310,7 @@ export const CampaignsPage: React.FC = () => {
                   ) : (
                     <>
                       <PlayCircle className="h-4 w-4" />
-                      Create & Prepare
+                      {t('campaigns.form_submit')}
                     </>
                   )}
                 </button>

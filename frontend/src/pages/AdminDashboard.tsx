@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import api from '../services/api';
 import { Users, PhoneCall, CheckSquare, Layers, Award, Landmark } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 
 export const AdminDashboard: React.FC = () => {
+  const { t } = useTranslation();
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
@@ -35,10 +37,10 @@ export const AdminDashboard: React.FC = () => {
     <div className="max-w-7xl mx-auto px-6 py-10 space-y-10">
       <div>
         <h1 className="text-3xl font-extrabold mb-2 bg-gradient-to-r from-secondary via-text-primary to-primary bg-clip-text text-transparent">
-          NGO & Admin Analytics Dashboard
+          {t('admin.dashboard_title')}
         </h1>
         <p className="text-text-secondary text-sm">
-          Monitor student registrations, profile completions, and AI Voice campaigns.
+          {t('admin.analytics_subtitle')}
         </p>
       </div>
 
@@ -46,7 +48,7 @@ export const AdminDashboard: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <div className="glass-panel p-6 flex items-center justify-between">
           <div>
-            <span className="text-text-secondary text-xs uppercase tracking-wider font-bold">Total Students</span>
+            <span className="text-text-secondary text-xs uppercase tracking-wider font-bold">{t('admin.total_students')}</span>
             <h3 className="text-3xl font-extrabold mt-1">{overview?.total_students || 0}</h3>
           </div>
           <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
@@ -56,7 +58,7 @@ export const AdminDashboard: React.FC = () => {
 
         <div className="glass-panel p-6 flex items-center justify-between">
           <div>
-            <span className="text-text-secondary text-xs uppercase tracking-wider font-bold">Profile Completion Rate</span>
+            <span className="text-text-secondary text-xs uppercase tracking-wider font-bold">{t('admin.completion_rate')}</span>
             <h3 className="text-3xl font-extrabold mt-1">{overview?.completion_rate || 0}%</h3>
           </div>
           <div className="h-12 w-12 rounded-xl bg-success/10 flex items-center justify-center text-success">
@@ -66,7 +68,7 @@ export const AdminDashboard: React.FC = () => {
 
         <div className="glass-panel p-6 flex items-center justify-between">
           <div>
-            <span className="text-text-secondary text-xs uppercase tracking-wider font-bold">Active Campaigns</span>
+            <span className="text-text-secondary text-xs uppercase tracking-wider font-bold">{t('admin.active_campaigns')}</span>
             <h3 className="text-3xl font-extrabold mt-1">{overview?.total_campaigns || 0}</h3>
           </div>
           <div className="h-12 w-12 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary">
@@ -76,7 +78,7 @@ export const AdminDashboard: React.FC = () => {
 
         <div className="glass-panel p-6 flex items-center justify-between">
           <div>
-            <span className="text-text-secondary text-xs uppercase tracking-wider font-bold">Leads Contacted</span>
+            <span className="text-text-secondary text-xs uppercase tracking-wider font-bold">{t('admin.calls_made')}</span>
             <h3 className="text-3xl font-extrabold mt-1">{overview?.total_leads || 0}</h3>
           </div>
           <div className="h-12 w-12 rounded-xl bg-white/5 flex items-center justify-center text-white">
@@ -91,7 +93,7 @@ export const AdminDashboard: React.FC = () => {
         <div className="glass-panel p-6 space-y-6">
           <div className="flex items-center gap-2 border-b border-white/5 pb-4">
             <Landmark className="h-5 w-5 text-primary" />
-            <h3 className="font-bold text-lg">State-wise Distribution</h3>
+            <h3 className="font-bold text-lg">{t('admin.state_wise')}</h3>
           </div>
 
           <div className="space-y-4">
@@ -113,7 +115,7 @@ export const AdminDashboard: React.FC = () => {
               })
             ) : (
               <div className="text-center py-10 text-text-muted text-sm italic">
-                No students registered yet.
+                {t('admin.no_students')}
               </div>
             )}
           </div>
@@ -123,7 +125,7 @@ export const AdminDashboard: React.FC = () => {
         <div className="glass-panel p-6 space-y-6">
           <div className="flex items-center gap-2 border-b border-white/5 pb-4">
             <Award className="h-5 w-5 text-secondary" />
-            <h3 className="font-bold text-lg">Social Category Distribution</h3>
+            <h3 className="font-bold text-lg">{t('admin.category_wise')}</h3>
           </div>
 
           <div className="space-y-4">
@@ -145,7 +147,7 @@ export const AdminDashboard: React.FC = () => {
               })
             ) : (
               <div className="text-center py-10 text-text-muted text-sm italic">
-                No students registered yet.
+                {t('admin.no_students')}
               </div>
             )}
           </div>

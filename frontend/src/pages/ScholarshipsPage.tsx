@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom';
 import api from '../services/api';
 import { Award, BookOpen, GraduationCap, Calendar, CheckCircle, ExternalLink, HelpCircle, Info, ClipboardList } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 
 type Tab = 'scholarships' | 'schemes' | 'colleges';
 
 export const ScholarshipsPage: React.FC = () => {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<Tab>('scholarships');
   const [recommendations, setRecommendations] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -67,16 +69,16 @@ export const ScholarshipsPage: React.FC = () => {
         <div className="h-16 w-16 rounded-2xl bg-secondary/10 border border-secondary/20 flex items-center justify-center">
           <ClipboardList className="h-8 w-8 text-secondary" />
         </div>
-        <h2 className="text-2xl font-bold">Profile Required</h2>
+        <h2 className="text-2xl font-bold">{t('scholarships.no_profile')}</h2>
         <p className="text-text-secondary leading-relaxed">
-          Complete your student profile so EduBridge AI can match you with eligible scholarships, schemes, and colleges automatically.
+          {t('scholarships.no_profile_desc')}
         </p>
         <Link
           to="/onboarding"
           className="px-8 py-3 rounded-xl font-bold text-white"
           style={{ backgroundColor: 'var(--color-primary)' }}
         >
-          Complete Profile Now
+          {t('scholarships.complete_profile')}
         </Link>
       </div>
     );
@@ -86,10 +88,10 @@ export const ScholarshipsPage: React.FC = () => {
     <div className="max-w-7xl mx-auto px-6 py-10 space-y-8">
       <div>
         <h1 className="text-3xl font-extrabold mb-2 bg-gradient-to-r from-primary via-text-primary to-secondary bg-clip-text text-transparent">
-          Opportunity Discovery
+          {t('scholarships.title')}
         </h1>
         <p className="text-text-secondary text-sm">
-          Browse through opportunities automatically matched with your profile eligibility criteria.
+          {t('scholarships.subtitle')}
         </p>
       </div>
 
@@ -109,7 +111,7 @@ export const ScholarshipsPage: React.FC = () => {
             }`}
           >
             {getTabIcon(tab)}
-            {tab}
+            {t(`nav.${tab}`) || tab}
           </button>
         ))}
       </div>
@@ -139,7 +141,7 @@ export const ScholarshipsPage: React.FC = () => {
                   </div>
                   <div className="flex flex-col items-end gap-1.5">
                     <span className="text-xs font-bold text-success bg-success/10 px-2.5 py-1 rounded-full border border-success/20">
-                      {Math.round(item.match_score * 100)}% Match
+                      {Math.round(item.match_score * 100)}% {t('scholarships.match')}
                     </span>
                     {item.item_data?.amount && (
                       <span className="text-xs font-bold text-secondary">
@@ -160,16 +162,16 @@ export const ScholarshipsPage: React.FC = () => {
                   {item.deadline && (
                     <span className="flex items-center gap-1">
                       <Calendar className="h-3.5 w-3.5 text-secondary" />
-                      Deadline: {item.deadline}
+                      {t('scholarships.deadline')}: {item.deadline}
                     </span>
                   )}
-                  <span className="text-primary font-bold hover:underline">Click to view details</span>
+                  <span className="text-primary font-bold hover:underline">{t('scholarships.click_view')}</span>
                 </div>
               </div>
             ))
           ) : (
             <div className="glass-panel p-12 text-center text-text-muted italic">
-              No matching {activeTab} found based on your profile details.
+              {t('scholarships.no_results', { tab: activeTab })}
             </div>
           )}
         </div>
@@ -180,14 +182,14 @@ export const ScholarshipsPage: React.FC = () => {
             <>
               <div>
                 <span className="text-xs font-bold text-primary bg-primary/10 px-2.5 py-1 rounded-full border border-primary/20 capitalize">
-                  {selectedItem.type} Details
+                  {selectedItem.type} {t('scholarships.details')}
                 </span>
                 <h3 className="font-extrabold text-xl mt-3 text-text-primary">{selectedItem.item_name}</h3>
               </div>
 
               {selectedItem.item_data?.description && (
                 <div className="space-y-1.5">
-                  <h4 className="text-xs font-bold text-text-secondary uppercase">Description</h4>
+                  <h4 className="text-xs font-bold text-text-secondary uppercase">{t('scholarships.description')}</h4>
                   <p className="text-xs text-text-primary leading-relaxed bg-white/5 p-3 rounded-lg">
                     {selectedItem.item_data.description}
                   </p>
@@ -196,7 +198,7 @@ export const ScholarshipsPage: React.FC = () => {
 
               {selectedItem.item_data?.benefits && (
                 <div className="space-y-1.5">
-                  <h4 className="text-xs font-bold text-text-secondary uppercase">Benefits</h4>
+                  <h4 className="text-xs font-bold text-text-secondary uppercase">{t('scholarships.benefits')}</h4>
                   <p className="text-xs text-text-primary leading-relaxed bg-white/5 p-3 rounded-lg border border-white/5">
                     {selectedItem.item_data.benefits}
                   </p>
@@ -205,7 +207,7 @@ export const ScholarshipsPage: React.FC = () => {
 
               {selectedItem.action_items?.length > 0 && (
                 <div className="space-y-2">
-                  <h4 className="text-xs font-bold text-text-secondary uppercase">Required Actions</h4>
+                  <h4 className="text-xs font-bold text-text-secondary uppercase">{t('scholarships.actions')}</h4>
                   <ul className="space-y-1.5">
                     {selectedItem.action_items.map((item: string, idx: number) => (
                       <li key={idx} className="flex items-start gap-2 text-xs text-text-secondary">
@@ -219,7 +221,7 @@ export const ScholarshipsPage: React.FC = () => {
 
               {selectedItem.item_data?.documents_required?.length > 0 && (
                 <div className="space-y-2">
-                  <h4 className="text-xs font-bold text-text-secondary uppercase">Required Documents</h4>
+                  <h4 className="text-xs font-bold text-text-secondary uppercase">{t('scholarships.documents')}</h4>
                   <div className="flex flex-wrap gap-1.5">
                     {selectedItem.item_data.documents_required.map((doc: string, idx: number) => (
                       <span key={idx} className="text-[10px] bg-white/5 border border-white/10 px-2 py-1 rounded-md text-text-secondary">
@@ -237,7 +239,7 @@ export const ScholarshipsPage: React.FC = () => {
                   rel="noreferrer"
                   className="w-full bg-primary hover:bg-primary-hover py-3 rounded-xl font-semibold text-white flex items-center justify-center gap-2 shadow-lg shadow-primary/20 transition-all text-sm cursor-pointer"
                 >
-                  Apply on Portal
+                  {t('scholarships.apply_now')}
                   <ExternalLink className="h-4 w-4" />
                 </a>
               )}
@@ -245,7 +247,7 @@ export const ScholarshipsPage: React.FC = () => {
           ) : (
             <div className="h-full flex flex-col items-center justify-center text-center py-20 text-text-muted space-y-3">
               <HelpCircle className="h-10 w-10 text-white/25" />
-              <p className="text-sm italic max-w-[200px]">Select an opportunity from the list to view eligibility details and action items.</p>
+              <p className="text-sm italic max-w-[200px]">{t('scholarships.select_desc')}</p>
             </div>
           )}
         </div>

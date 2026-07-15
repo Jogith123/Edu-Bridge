@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useTranslation } from 'react-i18next';
 import api from '../services/api';
 import toast from 'react-hot-toast';
 import { GraduationCap, Mail, Lock, User as UserIcon, Phone, ArrowRight, Loader2, Award, ShieldAlert } from 'lucide-react';
 
 export const RegisterPage: React.FC = () => {
+  const { t } = useTranslation();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -18,7 +20,7 @@ export const RegisterPage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !email || !password) {
-      toast.error('Please fill in all required fields');
+      toast.error(t('auth.error_required_fields', 'Please fill in all required fields'));
       return;
     }
 
@@ -33,7 +35,7 @@ export const RegisterPage: React.FC = () => {
       });
       const { access_token, user } = response.data;
       login(access_token, user);
-      toast.success(`Account registered successfully!`);
+      toast.success(t('auth.register_success', 'Account registered successfully!'));
 
       if (user.role === 'admin') {
         navigate('/admin/dashboard');
@@ -41,7 +43,7 @@ export const RegisterPage: React.FC = () => {
         navigate('/onboarding');
       }
     } catch (error: any) {
-      toast.error(error.response?.data?.detail || 'Registration failed. Please try again.');
+      toast.error(error.response?.data?.detail || t('auth.error_failed', 'Registration failed. Please try again.'));
     } finally {
       setIsLoading(false);
     }
@@ -56,8 +58,8 @@ export const RegisterPage: React.FC = () => {
           <div className="h-12 w-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary mb-4">
             <GraduationCap className="h-7 w-7" />
           </div>
-          <h2 className="text-2xl font-bold text-center">Create your account</h2>
-          <p className="text-sm text-text-secondary mt-1">Get started with EduBridge AI platform</p>
+          <h2 className="text-2xl font-bold text-center">{t('auth.register_title')}</h2>
+          <p className="text-sm text-text-secondary mt-1">{t('auth.register_subtitle')}</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5">
@@ -73,7 +75,7 @@ export const RegisterPage: React.FC = () => {
               }`}
             >
               <Award className="h-5 w-5" />
-              I am a Student
+              {t('auth.role_student')}
             </button>
             <button
               type="button"
@@ -85,12 +87,12 @@ export const RegisterPage: React.FC = () => {
               }`}
             >
               <ShieldAlert className="h-5 w-5" />
-              I am an Admin / NGO
+              {t('auth.role_admin')}
             </button>
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-sm font-medium text-text-secondary">Full Name</label>
+            <label className="text-sm font-medium text-text-secondary">{t('auth.name')}</label>
             <div className="relative">
               <UserIcon className="absolute left-3.5 top-3.5 h-5 w-5 text-text-muted" />
               <input
@@ -105,7 +107,7 @@ export const RegisterPage: React.FC = () => {
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-sm font-medium text-text-secondary">Email Address</label>
+            <label className="text-sm font-medium text-text-secondary">{t('auth.email')}</label>
             <div className="relative">
               <Mail className="absolute left-3.5 top-3.5 h-5 w-5 text-text-muted" />
               <input
@@ -120,7 +122,7 @@ export const RegisterPage: React.FC = () => {
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-sm font-medium text-text-secondary">Phone Number (Required for Call Outreach)</label>
+            <label className="text-sm font-medium text-text-secondary">{t('auth.phone')}</label>
             <div className="relative">
               <Phone className="absolute left-3.5 top-3.5 h-5 w-5 text-text-muted" />
               <input
@@ -134,7 +136,7 @@ export const RegisterPage: React.FC = () => {
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-sm font-medium text-text-secondary">Password</label>
+            <label className="text-sm font-medium text-text-secondary">{t('auth.password')}</label>
             <div className="relative">
               <Lock className="absolute left-3.5 top-3.5 h-5 w-5 text-text-muted" />
               <input
@@ -161,7 +163,7 @@ export const RegisterPage: React.FC = () => {
               <Loader2 className="h-5 w-5 animate-spin" />
             ) : (
               <>
-                Register Account
+                {t('auth.register_btn')}
                 <ArrowRight className="h-5 w-5" />
               </>
             )}
@@ -169,9 +171,9 @@ export const RegisterPage: React.FC = () => {
         </form>
 
         <p className="text-center text-sm text-text-secondary mt-6">
-          Already have an account?{' '}
+          {t('auth.have_account')}{' '}
           <Link to="/login" className="text-primary hover:underline font-medium">
-            Sign In here
+            {t('auth.sign_in_here')}
           </Link>
         </p>
       </div>

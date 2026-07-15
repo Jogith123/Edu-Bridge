@@ -116,10 +116,10 @@ export const OnboardingWizard: React.FC = () => {
   };
 
   const stepsList = [
-    { num: 1, title: 'Personal', icon: <User className="h-5 w-5" /> },
-    { num: 2, title: 'Social & Finance', icon: <Award className="h-5 w-5" /> },
-    { num: 3, title: 'Academic', icon: <BookOpen className="h-5 w-5" /> },
-    { num: 4, title: 'Career Paths', icon: <Briefcase className="h-5 w-5" /> },
+    { num: 1, title: t('onboarding.step1_title'), icon: <User className="h-5 w-5" /> },
+    { num: 2, title: t('onboarding.step2_title'), icon: <Award className="h-5 w-5" /> },
+    { num: 3, title: t('onboarding.step3_title'), icon: <BookOpen className="h-5 w-5" /> },
+    { num: 4, title: t('onboarding.step4_title'), icon: <Briefcase className="h-5 w-5" /> },
   ];
 
   return (
@@ -198,11 +198,11 @@ export const OnboardingWizard: React.FC = () => {
               className="space-y-6"
             >
               <h2 className="text-xl font-bold border-b border-white/5 pb-2 text-secondary">
-                Personal Details
+                {t('onboarding.step1_title')}
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm text-text-secondary">Date of Birth</label>
+                  <label className="text-sm text-text-secondary">{t('onboarding.dob')}</label>
                   <input
                     type="date"
                     value={formData.dob}
@@ -212,20 +212,20 @@ export const OnboardingWizard: React.FC = () => {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm text-text-secondary">Gender</label>
+                  <label className="text-sm text-text-secondary">{t('onboarding.gender')}</label>
                   <select
                     value={formData.gender}
                     onChange={(e) => updateField('gender', e.target.value)}
                     className="glass-input"
                   >
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
+                    <option value="male">{t('common.male', 'Male')}</option>
+                    <option value="female">{t('common.female', 'Female')}</option>
+                    <option value="other">{t('common.other', 'Other')}</option>
                   </select>
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm text-text-secondary">State</label>
+                  <label className="text-sm text-text-secondary">{t('onboarding.state')}</label>
                   <select
                     value={formData.state}
                     onChange={(e) => updateField('state', e.target.value)}
@@ -240,7 +240,7 @@ export const OnboardingWizard: React.FC = () => {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm text-text-secondary">District</label>
+                  <label className="text-sm text-text-secondary">{t('onboarding.district')}</label>
                   <input
                     type="text"
                     placeholder="e.g. Bhopal"
@@ -251,7 +251,7 @@ export const OnboardingWizard: React.FC = () => {
                 </div>
 
                 <div className="flex flex-col gap-1.5 md:col-span-2">
-                  <label className="text-sm text-text-secondary">Pincode</label>
+                  <label className="text-sm text-text-secondary">{t('onboarding.pincode')}</label>
                   <input
                     type="text"
                     placeholder="462001"
@@ -273,11 +273,11 @@ export const OnboardingWizard: React.FC = () => {
               className="space-y-6"
             >
               <h2 className="text-xl font-bold border-b border-white/5 pb-2 text-secondary">
-                Social & Financial Profile
+                {t('onboarding.step2_title')}
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm text-text-secondary">Category</label>
+                  <label className="text-sm text-text-secondary">{t('onboarding.category')}</label>
                   <select
                     value={formData.category}
                     onChange={(e) => updateField('category', e.target.value)}
@@ -292,7 +292,7 @@ export const OnboardingWizard: React.FC = () => {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm text-text-secondary">Annual Family Income (INR)</label>
+                  <label className="text-sm text-text-secondary">{t('onboarding.family_income')}</label>
                   <input
                     type="number"
                     value={formData.family_income}
@@ -302,7 +302,7 @@ export const OnboardingWizard: React.FC = () => {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm text-text-secondary">Parent's Occupation</label>
+                  <label className="text-sm text-text-secondary">{t('onboarding.parent_occupation')}</label>
                   <input
                     type="text"
                     placeholder="e.g. Farming / Shopkeeper"
@@ -313,7 +313,7 @@ export const OnboardingWizard: React.FC = () => {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm text-text-secondary">Religion</label>
+                  <label className="text-sm text-text-secondary">{t('onboarding.religion')}</label>
                   <input
                     type="text"
                     value={formData.religion}
@@ -331,7 +331,7 @@ export const OnboardingWizard: React.FC = () => {
                     className="h-5 w-5 accent-primary"
                   />
                   <label htmlFor="bpl" className="text-sm text-text-secondary cursor-pointer">
-                    Do you have a BPL (Below Poverty Line) card?
+                    {t('onboarding.bpl_card')}
                   </label>
                 </div>
 
@@ -344,13 +344,13 @@ export const OnboardingWizard: React.FC = () => {
                     className="h-5 w-5 accent-primary"
                   />
                   <label htmlFor="disability" className="text-sm text-text-secondary cursor-pointer">
-                    Do you have a physical disability?
+                    {t('onboarding.disability')}
                   </label>
                 </div>
 
                 {formData.disability && (
                   <div className="flex flex-col gap-1.5 md:col-span-2">
-                    <label className="text-sm text-text-secondary">Disability Type / Percentage</label>
+                    <label className="text-sm text-text-secondary">{t('onboarding.disability')}</label>
                     <input
                       type="text"
                       placeholder="e.g. Visual Impairment - 40%"
@@ -373,11 +373,11 @@ export const OnboardingWizard: React.FC = () => {
               className="space-y-6"
             >
               <h2 className="text-xl font-bold border-b border-white/5 pb-2 text-secondary">
-                Academic Background
+                {t('onboarding.step3_title')}
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm text-text-secondary">Current Class/Level</label>
+                  <label className="text-sm text-text-secondary">{t('onboarding.current_class')}</label>
                   <select
                     value={formData.current_class}
                     onChange={(e) => updateField('current_class', e.target.value)}
@@ -391,7 +391,7 @@ export const OnboardingWizard: React.FC = () => {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm text-text-secondary">Stream</label>
+                  <label className="text-sm text-text-secondary">{t('onboarding.stream')}</label>
                   <select
                     value={formData.stream}
                     onChange={(e) => updateField('stream', e.target.value)}
@@ -404,7 +404,7 @@ export const OnboardingWizard: React.FC = () => {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm text-text-secondary">10th Percentage (%)</label>
+                  <label className="text-sm text-text-secondary">{t('onboarding.percentage_10th')}</label>
                   <input
                     type="number"
                     step="0.01"
@@ -415,7 +415,7 @@ export const OnboardingWizard: React.FC = () => {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm text-text-secondary">12th Percentage (%)</label>
+                  <label className="text-sm text-text-secondary">{t('onboarding.percentage_12th')}</label>
                   <input
                     type="number"
                     step="0.01"
@@ -426,7 +426,7 @@ export const OnboardingWizard: React.FC = () => {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm text-text-secondary">Institution / School Name</label>
+                  <label className="text-sm text-text-secondary">{t('onboarding.institution_name')}</label>
                   <input
                     type="text"
                     placeholder="Govt Higher Secondary School"
@@ -437,7 +437,7 @@ export const OnboardingWizard: React.FC = () => {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm text-text-secondary">Board</label>
+                  <label className="text-sm text-text-secondary">{t('onboarding.board')}</label>
                   <select
                     value={formData.board}
                     onChange={(e) => updateField('board', e.target.value)}
@@ -461,11 +461,11 @@ export const OnboardingWizard: React.FC = () => {
               className="space-y-6"
             >
               <h2 className="text-xl font-bold border-b border-white/5 pb-2 text-secondary">
-                Career Interests & Skills
+                {t('onboarding.step4_title')}
               </h2>
               <div className="space-y-6">
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm text-text-secondary">Add Career Interests</label>
+                  <label className="text-sm text-text-secondary">{t('onboarding.career_interests')}</label>
                   <div className="flex gap-3">
                     <input
                       type="text"
@@ -480,7 +480,7 @@ export const OnboardingWizard: React.FC = () => {
                       onClick={addInterest}
                       className="bg-primary hover:bg-primary-hover px-5 rounded-xl text-white font-bold cursor-pointer"
                     >
-                      Add
+                      {t('onboarding.add_interest')}
                     </button>
                   </div>
                   <p className="text-xs text-text-muted">Type and click Add or press Enter</p>
@@ -521,7 +521,7 @@ export const OnboardingWizard: React.FC = () => {
               className="flex items-center gap-1.5 bg-white/5 border border-white/10 hover:bg-white/10 px-5 py-3 rounded-xl text-sm font-semibold cursor-pointer"
             >
               <ArrowLeft className="h-4 w-4" />
-              Back
+              {t('onboarding.back')}
             </button>
           ) : (
             <div></div>
@@ -533,7 +533,7 @@ export const OnboardingWizard: React.FC = () => {
               onClick={handleNext}
               className="flex items-center gap-1.5 bg-primary hover:bg-primary-hover px-6 py-3 rounded-xl text-sm font-semibold text-white cursor-pointer shadow-lg shadow-primary/20"
             >
-              Next Step
+              {t('onboarding.next')}
               <ArrowRight className="h-4 w-4" />
             </button>
           ) : (
@@ -543,7 +543,7 @@ export const OnboardingWizard: React.FC = () => {
               className="flex items-center gap-1.5 bg-success hover:bg-success-hover px-6 py-3 rounded-xl text-sm font-semibold text-white cursor-pointer shadow-lg shadow-success/20"
             >
               <Save className="h-4 w-4" />
-              Discover Matches
+              {t('onboarding.discover')}
             </button>
           )}
         </div>

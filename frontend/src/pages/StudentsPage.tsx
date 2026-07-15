@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import api from '../services/api';
 import { Users, Search, Mail, Phone, CheckCircle, XCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 
 export const StudentsPage: React.FC = () => {
+  const { t } = useTranslation();
   const [students, setStudents] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -51,10 +53,10 @@ export const StudentsPage: React.FC = () => {
       <div>
         <h1 className="text-3xl font-extrabold mb-2 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent flex items-center gap-2">
           <Users className="h-8 w-8 text-primary" />
-          Student Directory
+          {t('admin.student_directory')}
         </h1>
         <p className="text-text-secondary text-sm">
-          Search, filter, and review details of registered students.
+          {t('admin.student_directory_subtitle')}
         </p>
       </div>
 
@@ -63,7 +65,7 @@ export const StudentsPage: React.FC = () => {
           <Search className="absolute left-3.5 top-3.5 h-5 w-5 text-text-muted" />
           <input
             type="text"
-            placeholder="Search by name, email or phone..."
+            placeholder={t('admin.search_placeholder')}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="glass-input w-full pl-11"
@@ -105,11 +107,11 @@ export const StudentsPage: React.FC = () => {
                   <div className="flex flex-col items-end gap-1.5">
                     {student.profile_completed ? (
                       <span className="inline-flex items-center gap-1 text-[10px] font-bold text-success bg-success/10 px-2 py-0.5 rounded-full border border-success/20">
-                        <CheckCircle className="h-3 w-3" /> Completed
+                        <CheckCircle className="h-3 w-3" /> {t('admin.completed')}
                       </span>
                     ) : (
                       <span className="inline-flex items-center gap-1 text-[10px] font-bold text-red-400 bg-red-500/10 px-2 py-0.5 rounded-full border border-red-500/20">
-                        <XCircle className="h-3 w-3" /> Incomplete
+                        <XCircle className="h-3 w-3" /> {t('admin.incomplete')}
                       </span>
                     )}
 
@@ -124,7 +126,7 @@ export const StudentsPage: React.FC = () => {
             ))
           ) : (
             <div className="glass-panel p-12 text-center text-text-muted italic">
-              No students found.
+              {t('admin.no_students')}
             </div>
           )}
         </div>
@@ -141,9 +143,9 @@ export const StudentsPage: React.FC = () => {
               {selectedStudent.profile ? (
                 <div className="space-y-4 text-xs">
                   <div className="border-t border-white/5 pt-4 space-y-2">
-                    <h4 className="font-bold text-text-secondary uppercase">Personal Details</h4>
+                    <h4 className="font-bold text-text-secondary uppercase">{t('admin.personal_details')}</h4>
                     <div className="grid grid-cols-2 gap-2 text-text-primary">
-                      <div>State: <span className="font-semibold">{selectedStudent.profile.state}</span></div>
+                      <div>{t('admin.state')}: <span className="font-semibold">{selectedStudent.profile.state}</span></div>
                       <div>District: <span className="font-semibold">{selectedStudent.profile.district}</span></div>
                       <div>Category: <span className="font-semibold uppercase">{selectedStudent.profile.category}</span></div>
                       <div>Income: <span className="font-semibold">₹{selectedStudent.profile.family_income}</span></div>
@@ -151,7 +153,7 @@ export const StudentsPage: React.FC = () => {
                   </div>
 
                   <div className="border-t border-white/5 pt-4 space-y-2">
-                    <h4 className="font-bold text-text-secondary uppercase">Academic details</h4>
+                    <h4 className="font-bold text-text-secondary uppercase">{t('admin.academic_details')}</h4>
                     <div className="grid grid-cols-2 gap-2 text-text-primary">
                       <div>Class: <span className="font-semibold">{selectedStudent.profile.current_class}</span></div>
                       <div>Stream: <span className="font-semibold">{selectedStudent.profile.stream}</span></div>
@@ -161,7 +163,7 @@ export const StudentsPage: React.FC = () => {
                   </div>
 
                   <div className="border-t border-white/5 pt-4 space-y-2">
-                    <h4 className="font-bold text-text-secondary uppercase">Interests</h4>
+                    <h4 className="font-bold text-text-secondary uppercase">{t('admin.interests')}</h4>
                     <div className="flex flex-wrap gap-1.5">
                       {selectedStudent.profile.career_interests?.map((interest: string, idx: number) => (
                         <span key={idx} className="bg-primary/10 border border-primary/20 text-primary px-2 py-0.5 rounded-md font-semibold text-[10px]">
@@ -172,19 +174,19 @@ export const StudentsPage: React.FC = () => {
                   </div>
 
                   <div className="border-t border-white/5 pt-4">
-                    <span className="text-[10px] text-text-muted">Registered: {new Date(selectedStudent.user.created_at).toLocaleDateString()}</span>
+                    <span className="text-[10px] text-text-muted">{t('admin.registered')}: {new Date(selectedStudent.user.created_at).toLocaleDateString()}</span>
                   </div>
                 </div>
               ) : (
                 <div className="text-center py-10 text-text-muted text-xs italic">
-                  Student has not completed their profile setup yet.
+                  {t('admin.no_profile_setup')}
                 </div>
               )}
             </>
           ) : (
             <div className="h-full flex flex-col items-center justify-center text-center py-20 text-text-muted space-y-3">
               <Users className="h-10 w-10 text-white/25" />
-              <p className="text-sm italic max-w-[200px]">Select a student from the list to view their complete academic, economic and career profile details.</p>
+              <p className="text-sm italic max-w-[200px]">{t('admin.select_student_desc')}</p>
             </div>
           )}
         </div>
