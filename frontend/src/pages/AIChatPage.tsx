@@ -7,32 +7,29 @@ import { useTranslation } from 'react-i18next';
 interface Message {
   sender: 'user' | 'ai';
   text: string;
+  isKey?: boolean;
 }
 
 export const AIChatPage: React.FC = () => {
   const { t } = useTranslation();
 
   const QUICK_SUGGESTIONS = [
-    t('chat.q1'),
-    t('chat.q2'),
-    t('chat.q3'),
-    t('chat.q4')
+    'chat.q1',
+    'chat.q2',
+    'chat.q3',
+    'chat.q4'
   ];
 
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      sender: 'ai',
+      text: 'chat.greeting',
+      isKey: true
+    }
+  ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
-
-  // Set initial greeting using translated text once after mount/translation is ready
-  useEffect(() => {
-    setMessages([
-      {
-        sender: 'ai',
-        text: t('chat.greeting')
-      }
-    ]);
-  }, [t]);
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -93,7 +90,7 @@ export const AIChatPage: React.FC = () => {
                   : 'bg-white/5 text-text-primary border-white/10 rounded-tl-none'
               }`}
             >
-              {msg.text}
+              {msg.isKey ? t(msg.text) : msg.text}
             </div>
           </div>
         ))}
@@ -113,13 +110,13 @@ export const AIChatPage: React.FC = () => {
         <div className="mb-6 space-y-3">
           <span className="text-xs font-bold text-text-secondary uppercase tracking-wider block">{t('chat.suggested_title')}</span>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {QUICK_SUGGESTIONS.map((item, idx) => (
+            {QUICK_SUGGESTIONS.map((key, idx) => (
               <button
                 key={idx}
-                onClick={() => handleSend(item)}
+                onClick={() => handleSend(t(key))}
                 className="text-left p-3.5 rounded-xl bg-white/5 border border-white/10 hover:border-primary/20 hover:bg-white/10 text-xs text-text-secondary font-semibold transition-all cursor-pointer"
               >
-                {item}
+                {t(key)}
               </button>
             ))}
           </div>

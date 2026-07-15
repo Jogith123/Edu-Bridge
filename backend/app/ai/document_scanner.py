@@ -70,7 +70,7 @@ IMPORTANT:
     try:
         import google.generativeai as genai
         genai.configure(api_key=settings.GEMINI_API_KEY)
-        model = genai.GenerativeModel("gemini-2.0-flash-exp")
+        model = genai.GenerativeModel("gemini-2.0-flash")
 
         image_b64 = base64.b64encode(image_bytes).decode('utf-8')
         image_part = {

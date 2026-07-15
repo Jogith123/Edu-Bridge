@@ -171,7 +171,7 @@ async def _ai_score_and_explain(
     try:
         import google.generativeai as genai
         genai.configure(api_key=settings.GEMINI_API_KEY)
-        model = genai.GenerativeModel("gemini-2.0-flash-exp")
+        model = genai.GenerativeModel("gemini-2.0-flash")
 
         profile_summary = f"""
 Student Profile:
