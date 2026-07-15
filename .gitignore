@@ -1,0 +1,18 @@
+# Frontend dependencies
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local
+
+# Backend environment & runtimes
+backend/.venv/
+backend/venv/
+**/__pycache__/
+**/*.pyc
+backend/.env
+backend/edubridge.db
+
+# OS specific files
+.DS_Store
+Thumbs.db

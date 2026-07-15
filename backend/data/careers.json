@@ -1,0 +1,162 @@
+[
+  {
+    "name": "Software Engineer",
+    "category": "Technology",
+    "description": "Design, develop, and maintain software applications and systems. One of the highest-demand and best-paying careers in India.",
+    "required_subjects": ["Mathematics", "Physics", "Computer Science"],
+    "entrance_exams": ["JEE Main", "JEE Advanced", "CUET", "BITSAT", "State CETs"],
+    "avg_salary": "₹5 - ₹25 LPA (entry level ₹3-7 LPA)",
+    "growth_prospects": "Excellent — 20%+ job growth. High demand globally. Remote work opportunities.",
+    "top_colleges": ["IIT Bombay", "IIT Delhi", "NIT Trichy", "BITS Pilani", "VIT Vellore"],
+    "related_schemes": ["PMKVY Digital", "BharatNet Skills"],
+    "roadmap_steps": [
+      {"step": 1, "title": "Class 11-12", "desc": "Focus on Physics, Chemistry, Mathematics (PCM)"},
+      {"step": 2, "title": "JEE Preparation", "desc": "2 years intensive JEE Main & Advanced preparation"},
+      {"step": 3, "title": "B.Tech/B.E", "desc": "4-year Computer Science or IT degree"},
+      {"step": 4, "title": "Internships", "desc": "Apply for summer internships in tech companies"},
+      {"step": 5, "title": "Campus Placement", "desc": "Participate in campus placements (median ₹7-15 LPA)"}
+    ],
+    "tags": ["technology", "it", "programming", "computer-science", "engineering"],
+    "is_active": true
+  },
+  {
+    "name": "Doctor (MBBS + Specialization)",
+    "category": "Medicine",
+    "description": "Become a medical professional. Highly respected career with the ability to make a real difference to people's lives.",
+    "required_subjects": ["Biology", "Chemistry", "Physics"],
+    "entrance_exams": ["NEET UG", "NEET PG", "AIIMS (now via NEET)"],
+    "avg_salary": "₹8 - ₹30 LPA (specialist ₹20-80 LPA)",
+    "growth_prospects": "Excellent — doctor-population ratio in India is very low, guaranteeing high demand.",
+    "top_colleges": ["AIIMS New Delhi", "JIPMER", "CMC Vellore", "Armed Forces Medical College"],
+    "related_schemes": ["NSP Post-Matric for SC/ST", "INSPIRE (if science rank 1%)"],
+    "roadmap_steps": [
+      {"step": 1, "title": "Class 11-12", "desc": "Focus on Physics, Chemistry, Biology (PCB) — aim for 85%+"},
+      {"step": 2, "title": "NEET Preparation", "desc": "1-2 years NEET preparation with coaching or self-study"},
+      {"step": 3, "title": "MBBS (5.5 years)", "desc": "MBBS degree including 1-year internship"},
+      {"step": 4, "title": "PG Entrance (NEET PG)", "desc": "Optional but highly recommended for specialization"},
+      {"step": 5, "title": "Residency & Practice", "desc": "Complete residency and start practice or join hospital"}
+    ],
+    "tags": ["medical", "doctor", "mbbs", "neet", "healthcare"],
+    "is_active": true
+  },
+  {
+    "name": "Civil Services Officer (IAS/IPS/IFS)",
+    "category": "Government Services",
+    "description": "Join the elite Indian Administrative, Police, or Foreign Service. Shape India's governance and development.",
+    "required_subjects": ["Any stream in 12th"],
+    "entrance_exams": ["UPSC Civil Services Exam (Prelims + Mains + Interview)"],
+    "avg_salary": "₹56,100 - ₹2,50,000/month (Grade Pay system)",
+    "growth_prospects": "Stable, prestigious career with housing, vehicle, pension, and immense social impact.",
+    "top_colleges": ["Any recognized graduation is eligible"],
+    "related_schemes": ["Coaching schemes for SC/ST (NIOS)", "Free UPSC coaching by states"],
+    "roadmap_steps": [
+      {"step": 1, "title": "Graduation (Any Stream)", "desc": "Complete graduation from any recognized university"},
+      {"step": 2, "title": "UPSC Prelims", "desc": "Prepare for and clear UPSC Prelims (GS + CSAT)"},
+      {"step": 3, "title": "UPSC Mains", "desc": "9-paper descriptive exam covering GS, Essay, Optional subject"},
+      {"step": 4, "title": "Interview/Personality Test", "desc": "275-mark interview round"},
+      {"step": 5, "title": "Training (LBSNAA)", "desc": "Foundation course at Mussoorie for IAS officers"}
+    ],
+    "tags": ["upsc", "ias", "ips", "government", "civil-services", "administration"],
+    "is_active": true
+  },
+  {
+    "name": "Chartered Accountant (CA)",
+    "category": "Finance & Commerce",
+    "description": "Become a Chartered Accountant — one of India's most prestigious finance qualifications with excellent earning potential.",
+    "required_subjects": ["Mathematics", "Commerce", "Accounts"],
+    "entrance_exams": ["CA Foundation", "CA Intermediate", "CA Final (ICAI)"],
+    "avg_salary": "₹7 - ₹25 LPA (Big 4 firms ₹12-40 LPA)",
+    "growth_prospects": "Excellent — every business needs a CA. High-paying, flexible work, can be self-employed.",
+    "top_colleges": ["ICAI (Institute of Chartered Accountants of India)"],
+    "related_schemes": ["NSP scholarships for SC/ST commerce students"],
+    "roadmap_steps": [
+      {"step": 1, "title": "Class 12 Commerce", "desc": "Complete 12th with Commerce stream"},
+      {"step": 2, "title": "CA Foundation", "desc": "Register with ICAI, appear for Foundation exam"},
+      {"step": 3, "title": "CA Intermediate", "desc": "Complete articleship registration, clear Intermediate"},
+      {"step": 4, "title": "Articleship (3 years)", "desc": "Mandatory 3-year training under practicing CA"},
+      {"step": 5, "title": "CA Final", "desc": "Clear CA Final exam — you're a CA!"}
+    ],
+    "tags": ["commerce", "finance", "ca", "accounting", "icai"],
+    "is_active": true
+  },
+  {
+    "name": "Data Scientist / AI Engineer",
+    "category": "Technology",
+    "description": "Analyze complex data and build AI/ML models. One of the fastest-growing and highest-paying tech careers globally.",
+    "required_subjects": ["Mathematics", "Statistics", "Computer Science"],
+    "entrance_exams": ["JEE Main", "CUET", "GATE (for M.Tech/MS)"],
+    "avg_salary": "₹8 - ₹35 LPA (senior roles ₹30-80 LPA)",
+    "growth_prospects": "Exceptional — AI revolution is creating millions of jobs. India is a global AI hub.",
+    "top_colleges": ["IIT Bombay", "IIT Madras", "IISc Bangalore", "NIT Trichy", "IIIT Hyderabad"],
+    "related_schemes": ["Digital India Skill Initiative", "PMKVY AI Module"],
+    "roadmap_steps": [
+      {"step": 1, "title": "Strong Math Foundation", "desc": "Excel in Math and Statistics in school"},
+      {"step": 2, "title": "B.Tech/B.Sc", "desc": "Computer Science, Statistics, or Mathematics degree"},
+      {"step": 3, "title": "Learn Programming", "desc": "Python, SQL, ML libraries (free on Coursera, edX, NPTEL)"},
+      {"step": 4, "title": "Projects & Kaggle", "desc": "Build portfolio with real projects on GitHub and Kaggle"},
+      {"step": 5, "title": "M.Tech/Job", "desc": "Apply for data science roles or pursue GATE for M.Tech"}
+    ],
+    "tags": ["technology", "ai", "machine-learning", "data-science", "python"],
+    "is_active": true
+  },
+  {
+    "name": "Teacher / Professor",
+    "category": "Education",
+    "description": "Shape the next generation of India. Teaching is a noble, stable, and fulfilling career with good work-life balance.",
+    "required_subjects": ["Any stream — must specialize in chosen subject"],
+    "entrance_exams": ["CTET", "State TET", "UGC NET (for college)", "KVS/NVS exams"],
+    "avg_salary": "₹4 - ₹12 LPA (Govt teacher), ₹8 - ₹20 LPA (Professor)",
+    "growth_prospects": "Stable — government teaching jobs offer job security, pension, and long vacations.",
+    "top_colleges": ["Regional Institute of Education", "B.Ed colleges", "State universities"],
+    "related_schemes": ["INSPIRE Award for science teachers", "NSP scholarships for B.Ed students"],
+    "roadmap_steps": [
+      {"step": 1, "title": "Graduation (Subject of Choice)", "desc": "Complete graduation in the subject you want to teach"},
+      {"step": 2, "title": "B.Ed (2 years)", "desc": "Bachelor of Education from NCTE-recognized institution"},
+      {"step": 3, "title": "CTET/State TET", "desc": "Clear Teacher Eligibility Test for central/state schools"},
+      {"step": 4, "title": "Teaching Job", "desc": "Apply for KVS, NVS, or state government teacher posts"},
+      {"step": 5, "title": "UGC NET (optional)", "desc": "For college/university teaching, clear UGC NET + Ph.D"}
+    ],
+    "tags": ["education", "teaching", "government", "ctet", "bed"],
+    "is_active": true
+  },
+  {
+    "name": "Lawyer / Advocate",
+    "category": "Law",
+    "description": "Practice law in courts or corporate sectors. Law is a respected profession with strong earning potential.",
+    "required_subjects": ["Any stream (Arts recommended)"],
+    "entrance_exams": ["CLAT", "AILET", "LSAT India", "SLAT", "State Law entrance exams"],
+    "avg_salary": "₹4 - ₹20 LPA (corporate lawyers ₹15-50 LPA)",
+    "growth_prospects": "Good — India's growing economy and legal system ensure steady demand for legal professionals.",
+    "top_colleges": ["NLU Delhi", "NLU Bangalore", "NLU Mumbai", "Symbiosis Law School"],
+    "related_schemes": ["NSP scholarships applicable for law students", "Free legal aid training"],
+    "roadmap_steps": [
+      {"step": 1, "title": "Class 12 (Any Stream)", "desc": "Complete 12th. Arts/Humanities recommended but not required"},
+      {"step": 2, "title": "CLAT Preparation", "desc": "1 year preparation for Common Law Admission Test"},
+      {"step": 3, "title": "BA LLB (5 years)", "desc": "Integrated BA LLB at NLU or other law school"},
+      {"step": 4, "title": "Bar Council Enrollment", "desc": "Enroll with Bar Council of India after graduation"},
+      {"step": 5, "title": "Practice / Corporate Law", "desc": "Join law firm, practice independently, or pursue LLM"}
+    ],
+    "tags": ["law", "lawyer", "clat", "nlu", "legal", "judiciary"],
+    "is_active": true
+  },
+  {
+    "name": "Entrepreneur / Startup Founder",
+    "category": "Business",
+    "description": "Build your own business and create jobs. India's startup ecosystem is booming with strong government support.",
+    "required_subjects": ["Any — business sense matters more than stream"],
+    "entrance_exams": ["CAT (MBA optional)", "Any graduation"],
+    "avg_salary": "Highly variable — ₹0 to unlimited. Depends on your business.",
+    "growth_prospects": "India is 3rd largest startup ecosystem globally. Huge opportunities in EdTech, AgriTech, HealthTech, FinTech.",
+    "top_colleges": ["IIMs", "IITs", "ISB Hyderabad", "XLRI", "MDI Gurgaon"],
+    "related_schemes": ["Stand-Up India", "Startup India Scheme", "PMEGP", "Mudra Loan"],
+    "roadmap_steps": [
+      {"step": 1, "title": "Identify Problem to Solve", "desc": "Find a real problem in your community or sector"},
+      {"step": 2, "title": "Graduation + Skills", "desc": "Get a degree while building skills in business/tech"},
+      {"step": 3, "title": "Build MVP", "desc": "Create minimum viable product to test your idea"},
+      {"step": 4, "title": "Incubator/Funding", "desc": "Apply to startup incubators (SINE, NSRCEL, CIIE.CO)"},
+      {"step": 5, "title": "Scale", "desc": "Raise funding (Mudra loan, angel investors, VCs) and scale"}
+    ],
+    "tags": ["business", "startup", "entrepreneur", "mba", "innovation"],
+    "is_active": true
+  }
+]
