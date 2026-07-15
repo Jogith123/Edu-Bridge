@@ -155,7 +155,18 @@
   "chat": {
     "title": "AI Education Coach",
     "subtitle": "Ask anything about scholarships, careers, and colleges",
+    "tab_chat": "AI Chat",
+    "tab_kb": "Knowledge Base",
     "placeholder": "Ask about scholarships, careers, college admissions...",
+    "rag_placeholder": "e.g. Am I eligible for PM YASASVI? What scholarships for OBC in Telangana?",
+    "rag_examples": "Example Queries",
+    "rag_info_title": "Personalized Knowledge Base Search",
+    "rag_info_desc": "This searches all scholarships and government schemes in our database, filters them for your profile, and generates a grounded answer with cited sources.",
+    "rag_searching": "Searching knowledge base and generating personalized answer...",
+    "rag_eligible_count": "schemes matched your profile",
+    "rag_answer_label": "EduBridge AI Answer",
+    "rag_sources_label": "Sources Used",
+    "rag_clear": "New Search",
     "send": "Send",
     "thinking": "Thinking...",
     "greeting": "Hello! I'm your EduBridge AI Coach. Ask me anything about scholarships, career guidance, or college admissions!",
@@ -165,6 +176,7 @@
     "q3": "Tell me about NIT Trichy courses and cutoffs.",
     "q4": "Which government schemes help rural students learn skills?"
   },
+
   "admin": {
     "dashboard_title": "NGO & Admin Analytics Dashboard",
     "total_students": "Total Students",

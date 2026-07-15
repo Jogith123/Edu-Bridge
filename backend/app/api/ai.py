@@ -69,3 +69,42 @@ async def vapi_webhook(request: Request, db: AsyncSession = Depends(get_db)):
     payload = await request.json()
     result = await handle_vapi_webhook(payload, db)
     return result
+
+
+# ── RAG Engine ────────────────────────────────────────────────────────────────
+
+class RAGQueryRequest(BaseModel):
+    question: str
+
+
+@router.post("/rag-query")
+async def rag_query(
+    request: Request,
+    data: RAGQueryRequest,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """
+    Personalized Scholarship RAG Engine.
+    Retrieves eligible scholarships/schemes from the knowledge base,
+    ranks by BM25 relevance, and generates a grounded Gemini answer.
+    Returns the answer + sources used (for citation display in UI).
+    """
+    from app.ai.rag_engine import retrieve_and_generate
+
+    language = request.headers.get("X-Language", "en")
+
+    result = await db.execute(
+        select(StudentProfile).where(StudentProfile.user_id == current_user.id)
+    )
+    profile = result.scalar_one_or_none()
+
+    if not profile:
+        raise HTTPException(
+            status_code=400,
+            detail="Please complete your profile first to get personalized results.",
+        )
+
+    rag_result = await retrieve_and_generate(data.question, profile, language, db)
+    return rag_result
+

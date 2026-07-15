@@ -11,7 +11,8 @@ class Settings(BaseSettings):
     VAPI_API_KEY: str = ""
     VAPI_PHONE_NUMBER_ID: str = ""
     VAPI_WEBHOOK_URL: str = ""
-    CORS_ORIGINS: str = "http://localhost:5173,http://localhost:3000"
+    CORS_ORIGINS: str = "http://localhost:5173,http://localhost:3000,https://*.run.app"
+
 
     @property
     def cors_origins_list(self) -> List[str]:
