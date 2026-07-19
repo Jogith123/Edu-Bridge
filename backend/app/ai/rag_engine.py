@@ -81,7 +81,12 @@ def _is_eligible(doc: Dict[str, Any], profile: StudentProfile) -> bool:
         if profile.current_class not in classes:
             return False
     if doc.get('gender_specific') and profile.gender:
-        if doc['gender_specific'] != profile.gender:
+        if doc['gender_specific'].lower() != profile.gender.lower():
+            return False
+    if doc.get('disability_required') and not profile.disability:
+        return False
+    if doc.get('eligible_streams') and profile.stream:
+        if len(doc['eligible_streams']) > 0 and profile.stream not in doc['eligible_streams']:
             return False
     student_pct = profile.percentage_12th or profile.percentage_10th or 0.0
     if doc.get('min_percentage') and student_pct < doc['min_percentage']:
@@ -104,10 +109,12 @@ def _scholarship_to_doc(s: Scholarship) -> Dict[str, Any]:
         'eligible_categories': s.eligible_categories or [],
         'eligible_states': s.eligible_states or [],
         'eligible_classes': s.eligible_classes or [],
+        'eligible_streams': s.eligible_streams or [],
         'max_income': s.max_income,
         'min_percentage': s.min_percentage,
         'tags': s.tags or [],
         'gender_specific': s.gender_specific,
+        'disability_required': s.disability_required,
         'documents_required': s.documents_required or [],
     }
 

@@ -79,7 +79,7 @@ async def _filter_scholarships(profile: StudentProfile, db: AsyncSession) -> Lis
     for s in scholarships:
         # Category check
         if profile.category and s.eligible_categories:
-            if "all" not in s.eligible_categories and profile.category not in s.eligible_categories:
+            if "all" not in [c.lower() for c in s.eligible_categories] and profile.category not in s.eligible_categories:
                 continue
         # Income check
         if s.max_income and profile.family_income and profile.family_income > s.max_income:
@@ -90,6 +90,18 @@ async def _filter_scholarships(profile: StudentProfile, db: AsyncSession) -> Lis
         # Class check
         if s.eligible_classes and profile.current_class and profile.current_class not in s.eligible_classes:
             continue
+        # Gender check
+        if s.gender_specific and profile.gender:
+            if s.gender_specific.lower() != profile.gender.lower():
+                continue
+        # Disability check
+        if s.disability_required and not profile.disability:
+            continue
+        # Stream check
+        if s.eligible_streams and profile.stream:
+            # If eligible_streams is specified and not empty, check if profile.stream is in it
+            if len(s.eligible_streams) > 0 and profile.stream not in s.eligible_streams:
+                continue
         # Percentage check
         student_pct = profile.percentage_12th or profile.percentage_10th or 0
         if s.min_percentage and student_pct < s.min_percentage:
