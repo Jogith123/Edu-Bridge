@@ -13,6 +13,9 @@ backend/venv/
 backend/.env
 backend/edubridge.db
 
+# Cloud Run secrets — NEVER commit real secrets
+backend/cloudrun-env.local.yaml
+
 # OS specific files
 .DS_Store
 Thumbs.db
