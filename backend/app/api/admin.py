@@ -110,48 +110,64 @@ async def create_campaign(
     current_admin: User = Depends(get_current_admin),
     db: AsyncSession = Depends(get_db),
 ):
-    campaign = Campaign(
-        admin_id=current_admin.id,
-        name=data.name,
-        description=data.description,
-        target_criteria=data.target_criteria,
-        call_script=data.call_script,
-    )
-    db.add(campaign)
-    await db.flush()  # Assign ID to campaign
-
-    target_state = data.target_criteria.get("state") if data.target_criteria else None
-
-    # Fetch matching students
-    if not target_state or target_state == "All States":
-        student_query = select(User).where(User.role == "student", User.phone != None, User.phone != "")
-    else:
-        student_query = (
-            select(User)
-            .join(StudentProfile, StudentProfile.user_id == User.id)
-            .where(User.role == "student", User.phone != None, User.phone != "", StudentProfile.state == target_state)
+    try:
+        campaign = Campaign(
+            admin_id=current_admin.id,
+            name=data.name,
+            description=data.description,
+            target_criteria=data.target_criteria,
+            call_script=data.call_script,
         )
+        db.add(campaign)
+        await db.flush()  # Assign ID to campaign
 
-    students_result = await db.execute(student_query)
-    students = students_result.scalars().all()
+        target_state = data.target_criteria.get("state") if data.target_criteria else None
 
-    # Create Lead objects
-    leads_count = 0
-    for student in students:
-        lead = Lead(
-            campaign_id=campaign.id,
-            student_id=student.id,
-            phone=student.phone,
-            name=student.name,
-            status="pending",
-        )
-        db.add(lead)
-        leads_count += 1
+        # Fetch matching students
+        if not target_state or target_state == "All States":
+            student_query = select(User).where(
+                User.role == "student",
+                User.phone.isnot(None),
+                User.phone != "",
+            )
+        else:
+            student_query = (
+                select(User)
+                .join(StudentProfile, StudentProfile.user_id == User.id)
+                .where(
+                    User.role == "student",
+                    User.phone.isnot(None),
+                    User.phone != "",
+                    StudentProfile.state == target_state,
+                )
+            )
 
-    campaign.total_students = leads_count
-    await db.commit()
-    await db.refresh(campaign)
-    return {"message": f"Campaign created with {leads_count} target leads.", "campaign_id": str(campaign.id)}
+        students_result = await db.execute(student_query)
+        students = students_result.scalars().all()
+
+        # Create Lead objects
+        leads_count = 0
+        for student in students:
+            if not student.phone:
+                continue
+            lead = Lead(
+                campaign_id=campaign.id,
+                student_id=student.id,
+                phone=student.phone,
+                name=student.name,
+                status="pending",
+            )
+            db.add(lead)
+            leads_count += 1
+
+        campaign.total_students = leads_count
+        await db.commit()
+        await db.refresh(campaign)
+        return {"message": f"Campaign created with {leads_count} target leads.", "campaign_id": str(campaign.id)}
+
+    except Exception as e:
+        await db.rollback()
+        raise HTTPException(status_code=500, detail=f"Failed to create campaign: {str(e)}")
 
 
 @router.get("/campaigns")

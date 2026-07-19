@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     VAPI_API_KEY: str = ""
     VAPI_PHONE_NUMBER_ID: str = ""
     VAPI_WEBHOOK_URL: str = ""
-    CORS_ORIGINS: str = "http://localhost:5173,http://localhost:3000,https://*.run.app"
+    CORS_ORIGINS: str = "http://localhost:5173,http://localhost:3000,https://edubridge-frontend-414139959751.us-central1.run.app"
 
 
     @property

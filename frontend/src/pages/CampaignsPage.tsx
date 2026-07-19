@@ -80,7 +80,8 @@ export const CampaignsPage: React.FC = () => {
       setShowCreateModal(false);
       fetchCampaignsAndLeads();
     } catch (err: any) {
-      toast.error('Failed to create campaign');
+      const detail = err.response?.data?.detail || 'Failed to create campaign';
+      toast.error(detail);
     } finally {
       setIsSubmitting(false);
     }
