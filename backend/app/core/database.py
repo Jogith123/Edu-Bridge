@@ -4,6 +4,11 @@ from app.models.base import Base
 
 # SQLAlchemy Engine Configuration
 database_url = settings.DATABASE_URL
+
+# Fix for Render: Convert postgresql:// to postgresql+asyncpg://
+if database_url.startswith("postgresql://"):
+    database_url = database_url.replace("postgresql://", "postgresql+asyncpg://", 1)
+
 connect_args = {}
 pool_config = {}
 
