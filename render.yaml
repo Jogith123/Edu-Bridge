@@ -1,0 +1,54 @@
+# Render Blueprint for Edu-Bridge Backend
+# This file allows Infrastructure as Code deployment on Render
+# Visit: https://dashboard.render.com/select-repo?type=blueprint
+
+services:
+  # FastAPI Backend
+  - type: web
+    name: edubridge-backend
+    runtime: python
+    plan: free # Change to 'starter' for production ($7/month)
+    region: oregon
+    buildCommand: pip install -r requirements.txt
+    startCommand: sh -c "python seed.py && uvicorn main:app --host 0.0.0.0 --port $PORT"
+    rootDir: backend
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: DATABASE_URL
+        fromDatabase:
+          name: edubridge-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true # Automatically generates a secure random key
+      - key: ALGORITHM
+        value: HS256
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: 10080
+      - key: GEMINI_API_KEY
+        sync: false # You'll need to add this manually in Render dashboard
+      - key: VAPI_API_KEY
+        value: "" # Optional - add in dashboard if needed
+      - key: VAPI_PHONE_NUMBER_ID
+        value: "" # Optional
+      - key: VAPI_WEBHOOK_URL
+        value: "" # Optional
+      - key: CORS_ORIGINS
+        value: http://localhost:5173,http://localhost:3000
+        # Update this in Render dashboard after deploying frontend
+
+databases:
+  - name: edubridge-db
+    databaseName: edubridge
+    user: edubridge_user
+    plan: free # Change to 'starter' for production ($7/month)
+    region: oregon
+
+# Instructions:
+# 1. Push this file to your GitHub repository
+# 2. Go to: https://dashboard.render.com/select-repo?type=blueprint
+# 3. Select your repository
+# 4. Render will automatically create both database and web service
+# 5. Add GEMINI_API_KEY manually in the dashboard (Environment tab)
+# 6. Update CORS_ORIGINS after deploying frontend to Vercel

@@ -5,14 +5,24 @@ from app.models.base import Base
 # SQLAlchemy Engine Configuration
 database_url = settings.DATABASE_URL
 connect_args = {}
+pool_config = {}
 
 if database_url.startswith("sqlite"):
     connect_args = {"check_same_thread": False}
+elif database_url.startswith("postgresql"):
+    # PostgreSQL production configuration
+    pool_config = {
+        "pool_size": 5,
+        "max_overflow": 10,
+        "pool_pre_ping": True,  # Verify connections before using
+        "pool_recycle": 3600,   # Recycle connections after 1 hour
+    }
 
 engine = create_async_engine(
     database_url,
     connect_args=connect_args,
     echo=False,
+    **pool_config
 )
 
 AsyncSessionLocal = async_sessionmaker(

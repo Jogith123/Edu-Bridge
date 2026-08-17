@@ -9,8 +9,14 @@ from app.api import auth, student, admin, ai
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Initialize database on startup."""
-    await init_db()
+    try:
+        await init_db()
+        print("[OK] Database initialized successfully")
+    except Exception as e:
+        print(f"[ERROR] Database initialization failed: {e}")
+        raise
     yield
+    print("[INFO] Application shutting down")
 
 
 app = FastAPI(
@@ -49,4 +55,23 @@ async def root():
 
 @app.get("/health")
 async def health():
-    return {"status": "healthy"}
+    """Health check endpoint for monitoring."""
+    from app.core.database import engine
+    from sqlalchemy import text
+    
+    health_status = {
+        "status": "healthy",
+        "service": "EduBridge AI Backend",
+        "version": "1.0.0"
+    }
+    
+    # Check database connection
+    try:
+        async with engine.connect() as conn:
+            await conn.execute(text("SELECT 1"))
+        health_status["database"] = "connected"
+    except Exception as e:
+        health_status["database"] = f"error: {str(e)}"
+        health_status["status"] = "unhealthy"
+    
+    return health_status
